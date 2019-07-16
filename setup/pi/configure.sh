@@ -315,6 +315,12 @@ else
 
     echo "ARCHIVE_HOST_NAME=$archiveserver" > /root/teslausb.conf
     echo "ARCHIVE_DELAY=${archivedelay:-20}" >> /root/teslausb.conf
+    if [ ! -z ${tesla_email:+x} ]
+    then
+      echo "export TESLAAPI_EMAIL='${tesla_email}'" >> /root/teslausb.conf
+      echo "export TESLAAPI_PASSWORD='${tesla_password:-}'" >> /root/teslausb.conf
+      echo "export TESLAAPI_VIN='${tesla_vin:-}'" >> /root/teslausb.conf
+    fi
 
     archive_module="$( get_archive_module )"
     log_progress "Using archive module: $archive_module"
